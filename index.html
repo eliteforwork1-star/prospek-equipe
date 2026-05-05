@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#00695C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>PROSPEK Équipe — SUNU</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Sora,sans-serif;background:#F0F4F8;min-height:100vh;color:#1A1A1A}
+:root{
+  --t1:#00897B;--t2:#004D40;--gr:#2E7D32;--grl:#E8F5E9;
+  --re:#C62828;--rel:#FFEBEE;--or:#E65100;--orl:#FFF3E0;
+  --bg:#F0F4F8;--bg2:#E0E7EF;--tx:#1A1A1A;--tx2:#5A6A7A;--tx3:#9AABB8;
+  --card:#FFFFFF;--bleu:#1A3C5E;
+}
+.hdr{background:linear-gradient(135deg,var(--t2),var(--t1));padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.hdr-logo{font-size:20px;font-weight:800;color:white;letter-spacing:-0.5px}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.75);margin-top:1px}
+.hdr-info{text-align:right}
+.hdr-user{font-size:11px;font-weight:700;color:white}
+.hdr-time{font-size:10px;color:rgba(255,255,255,.75)}
+.sec{padding:12px 14px;max-width:480px;margin:0 auto}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.stitle{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+.hero{background:linear-gradient(135deg,var(--t2),var(--t1));border-radius:16px;padding:18px;margin-bottom:12px;color:white;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-20px;top:-20px;width:100px;height:100px;background:rgba(255,255,255,.08);border-radius:50%}
+.hero-label{font-size:10px;font-weight:600;opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.hero-val{font-size:32px;font-weight:800;letter-spacing:-1px}
+.hero-sub{font-size:11px;opacity:.8;margin-top:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.stat-card{background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.stat-val{font-size:24px;font-weight:800;color:var(--t1)}
+.stat-lbl{font-size:10px;color:var(--tx2);margin-top:2px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bg2)}
+.row:last-child{border-bottom:none}
+.cnom{font-size:13px;font-weight:700;color:var(--tx)}
+.cmeta{font-size:10px;color:var(--tx2);margin-top:2px}
+.bdg{font-size:9px;padding:3px 8px;border-radius:8px;font-weight:700}
+.bv{background:var(--grl);color:var(--gr)}
+.bo{background:var(--orl);color:var(--or)}
+.br{background:var(--rel);color:var(--re)}
+.comm-val{font-size:14px;font-weight:800;color:var(--t1)}
+.nav{display:flex;background:white;border-top:1px solid var(--bg2);position:fixed;bottom:0;left:0;right:0;z-index:100}
+.nav-btn{flex:1;padding:10px 0 8px;text-align:center;cursor:pointer;border:none;background:none;font-family:Sora,sans-serif}
+.nav-ico{font-size:18px;display:block}
+.nav-lbl{font-size:9px;color:var(--tx3);font-weight:600}
+.nav-btn.active .nav-lbl{color:var(--t1)}
+.fi{width:100%;padding:12px;border:2px solid var(--bg2);border-radius:12px;font-size:14px;font-family:Sora,sans-serif;color:var(--tx);background:white;outline:none}
+.fi:focus{border-color:var(--t1)}
+.fl{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;margin-bottom:5px;display:block;letter-spacing:.05em}
+.fg{margin-bottom:12px}
+.bp1{width:100%;padding:14px;background:linear-gradient(135deg,var(--t2),var(--t1));color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:Sora,sans-serif}
+.bp1:active{opacity:.85}
+.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:24px;background:linear-gradient(135deg,var(--t2),var(--t1))}
+.login-card{background:white;border-radius:20px;padding:28px 22px}
+.login-logo{font-size:32px;font-weight:800;color:white;text-align:center;margin-bottom:4px}
+.login-sub{font-size:12px;color:rgba(255,255,255,.8);text-align:center;margin-bottom:24px}
+.err{background:var(--rel);color:var(--re);border-radius:10px;padding:10px;font-size:12px;font-weight:600;margin-bottom:12px;display:none;text-align:center}
+/* Manager */
+.rank{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bg2);cursor:pointer}
+.rank:last-child{border-bottom:none}
+.rank-num{font-size:18px;font-weight:800;color:var(--bg2);width:28px;text-align:center}
+.rank-num.top{color:var(--or)}
+.bar-wrap{height:5px;background:var(--bg2);border-radius:3px;margin-top:4px}
+.bar{height:5px;background:linear-gradient(90deg,var(--t1),var(--t2));border-radius:3px;transition:width .5s}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A3C5E;color:white;padding:10px 20px;border-radius:20px;font-size:12px;font-weight:600;opacity:0;transition:.3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.pb{height:70px}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<div id="app"></div>
+
+<script>
+var SHEETS_URL='https://script.google.com/macros/s/AKfycbwDsuanGIVoabNfg6xVwCd9U74WDjMSy__QlXQowU_CAjKcJYRq1HfCtiPXPB2CVnRDgg/exec';
+var API_TOKEN='PROSPEK_EQUIPE_2026_SUNU';
+var OBJECTIF=1000000;
+
+// State
+var state={
+  logged:false, code:'', nom:'', role:'commercial', onglet:'',
+  view:'accueil', contrats:[], prospects:[], equipe:[],
+  totalComm:0, loading:false
+};
+
+// Persistence
+function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+// Restore session
+var savedSession=load('pk_eq_session',null);
+if(savedSession&&savedSession.code){
+  state.logged=true;
+  state.code=savedSession.code;
+  state.nom=savedSession.nom;
+  state.role=savedSession.role;
+  state.onglet=savedSession.onglet;
+  state.contrats=load('pk_eq_contrats',[]);
+  state.prospects=load('pk_eq_prospects',[]);
+  state.equipe=load('pk_eq_equipe',[]);
+  state.totalComm=load('pk_eq_totalComm',0);
+}
+
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+function fmt(n){
+  n=Math.round(n||0);
+  return n.toLocaleString('fr-FR')+' FCFA';
+}
+
+function fp(tel){
+  if(!tel)return '';
+  var t=String(tel).replace(/\s/g,'');
+  if(t.startsWith('+229'))return '0'+t.slice(4);
+  if(t.startsWith('229'))return '0'+t.slice(3);
+  if(!t.startsWith('0'))return '0'+t;
+  return t;
+}
+
+function sheetsGet(action,extra){
+  extra=extra||'';
+  return fetch(SHEETS_URL+'?action='+action+'&token='+API_TOKEN+'&code='+state.code+extra);
+}
+
+function sheetsPost(action,data){
+  data.token=API_TOKEN;
+  data.code=state.code;
+  data.action=action;
+  return fetch(SHEETS_URL,{method:'POST',body:JSON.stringify(data)})
+    .then(function(r){return r.json();})
+    .catch(function(){return {success:false};});
+}
+
+// ============================================================
+// LOGIN
+// ============================================================
+function renderLogin(){
+  document.getElementById('app').innerHTML=
+    '<div class="login-wrap">'+
+    '<div class="login-logo">PROSPEK</div>'+
+    '<div class="login-sub">Système Équipe UP3</div>'+
+    '<div class="login-card">'+
+    '<div class="err" id="login-err">Code invalide. Réessaie.</div>'+
+    '<div class="fg"><label class="fl">Ton code de connexion</label>'+
+    '<input class="fi" id="login-code" type="text" placeholder="Ex: GILDAS2026" style="text-transform:uppercase;font-size:16px;text-align:center" autocomplete="off">'+
+    '</div>'+
+    '<button class="bp1" onclick="doLogin()">Se connecter</button>'+
+    '<div style="font-size:10px;color:#AAA;text-align:center;margin-top:14px">Si tu n\'as pas de code, contacte ton responsable</div>'+
+    '</div></div>';
+
+  var inp=document.getElementById('login-code');
+  if(inp){
+    inp.addEventListener('input',function(){this.value=this.value.toUpperCase();});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+  }
+}
+
+function doLogin(){
+  var inp=document.getElementById('login-code');
+  var code=(inp?inp.value:'').trim().toUpperCase();
+  if(!code){return;}
+
+  var btn=document.querySelector('.bp1');
+  if(btn){btn.textContent='Connexion...';btn.disabled=true;}
+
+  // Login: state.code pas encore défini, passer le code directement
+  fetch(SHEETS_URL+'?action=login&token='+API_TOKEN+'&code='+code)
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(res.success){
+        state.logged=true;
+        state.code=code;
+        state.nom=res.nom;
+        state.role=res.role||'commercial';
+        state.onglet=res.onglet;
+        save('pk_eq_session',{code:code,nom:res.nom,role:state.role,onglet:state.onglet});
+        toast('Bienvenue '+res.nom.split(' ')[0]+' !');
+        chargerDonnees();
+        render();
+      } else {
+        var err=document.getElementById('login-err');
+        if(err)err.style.display='block';
+        if(btn){btn.textContent='Se connecter';btn.disabled=false;}
+      }
+    }).catch(function(){
+      var err=document.getElementById('login-err');
+      if(err){err.style.display='block';err.textContent='Erreur réseau. Vérifie ta connexion.';}
+      if(btn){btn.textContent='Se connecter';btn.disabled=false;}
+    });
+}
+
+function deconnecter(){
+  if(!confirm('Se déconnecter ?'))return;
+  localStorage.removeItem('pk_eq_session');
+  localStorage.removeItem('pk_eq_contrats');
+  localStorage.removeItem('pk_eq_prospects');
+  localStorage.removeItem('pk_eq_equipe');
+  state.logged=false;state.code='';state.nom='';
+  state.contrats=[];state.prospects=[];state.equipe=[];
+  render();
+}
+
+// ============================================================
+// CHARGER DONNÉES
+// ============================================================
+function chargerDonnees(){
+  // Contrats
+  sheetsGet('getContrats')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(res.success){
+        state.contrats=res.contrats||[];
+        state.totalComm=res.totalComm||0;
+        save('pk_eq_contrats',state.contrats);
+        save('pk_eq_totalComm',state.totalComm);
+        if(state.view==='accueil'||state.view==='bilan')render();
+      }
+    }).catch(function(){});
+
+  // Prospects
+  sheetsGet('getProspects')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(res.success){
+        state.prospects=res.prospects||[];
+        save('pk_eq_prospects',state.prospects);
+        if(state.view==='pipeline')render();
+      }
+    }).catch(function(){});
+
+  // Equipe (si manager)
+  if(state.role==='manager'||state.role==='admin'){
+    sheetsGet('getEquipe')
+      .then(function(r){return r.json();})
+      .then(function(res){
+        if(res.success){
+          state.equipe=res.equipe||[];
+          save('pk_eq_equipe',state.equipe);
+          if(state.view==='equipe')render();
+        }
+      }).catch(function(){});
+  }
+}
+
+// ============================================================
+// RENDER PRINCIPAL
+// ============================================================
+function render(){
+  if(!state.logged){renderLogin();return;}
+
+  var tabs=state.role==='manager'?
+    [{id:'accueil',lb:'Accueil'},{id:'equipe',lb:'Équipe'},{id:'bilan',lb:'Bilan'},{id:'ajouter',lb:'Ajouter'}]:
+    [{id:'accueil',lb:'Accueil'},{id:'pipeline',lb:'Pipeline'},{id:'bilan',lb:'Bilan'},{id:'ajouter',lb:'Ajouter'}];
+
+  var nav='<nav class="nav">';
+  var icos={'accueil':'🏠','equipe':'👥','pipeline':'📋','bilan':'📊','ajouter':'➕'};
+  tabs.forEach(function(t){
+    nav+='<button class="nav-btn '+(state.view===t.id?'active':'')+'" onclick="navTo(\''+t.id+'\')">'+
+      '<span class="nav-ico">'+(icos[t.id]||'')+'</span>'+
+      '<span class="nav-lbl">'+t.lb+'</span></button>';
+  });
+  nav+='</nav>';
+
+  var hdrHtml='<div class="hdr">'+
+    '<div><div class="hdr-logo">PROSPEK</div><div class="hdr-sub">SUNU — Équipe</div></div>'+
+    '<div class="hdr-info">'+
+    '<div class="hdr-user">'+state.nom.split(' ')[0]+'</div>'+
+    '<div class="hdr-time" id="htime">--:--</div>'+
+    '<div style="font-size:9px;color:rgba(255,255,255,.6);cursor:pointer;margin-top:2px" onclick="chargerDonnees();toast(\'Synchronisation...\')">↻ Sync</div>'+
+    '</div></div>';
+
+  var content='';
+  if(state.view==='accueil')content=renderAccueil();
+  else if(state.view==='pipeline')content=renderPipeline();
+  else if(state.view==='bilan')content=renderBilan();
+  else if(state.view==='ajouter')content=renderAjouter();
+  else if(state.view==='equipe')content=renderEquipe();
+
+  document.getElementById('app').innerHTML=hdrHtml+content+nav;
+  updateTime();
+}
+
+function navTo(v){state.view=v;render();}
+
+function updateTime(){
+  var el=document.getElementById('htime');
+  if(el){
+    var d=new Date();
+    var h=d.getHours(),m=d.getMinutes();
+    var periode=h<12?'Matin':h<17?'Après-midi':h<21?'Soir':'Nuit';
+    el.textContent=periode+' '+h+'h'+(m<10?'0':'')+m;
+  }
+}
+setInterval(updateTime,30000);
+
+// ============================================================
+// ACCUEIL
+// ============================================================
+function renderAccueil(){
+  var pct=Math.min(100,Math.round((state.totalComm/OBJECTIF)*100));
+  var actifs=state.contrats.filter(function(c){return (c.statut||'').toLowerCase()==='actif';}).length;
+  var h='<div class="sec">';
+
+  h+='<div class="hero">'+
+    '<div class="hero-label">Commission mensuelle estimée</div>'+
+    '<div class="hero-val">'+fmt(state.totalComm)+'</div>'+
+    '<div style="background:rgba(255,255,255,.2);border-radius:6px;height:4px;margin:10px 0 4px">'+
+    '<div style="background:white;border-radius:6px;height:4px;width:'+pct+'%"></div></div>'+
+    '<div class="hero-sub">'+pct+'% atteint — Objectif: '+fmt(OBJECTIF)+'</div>'+
+    '</div>';
+
+  h+='<div class="grid2">'+
+    '<div class="stat-card"><div class="stat-val">'+state.contrats.length+'</div><div class="stat-lbl">Contrats 2026</div></div>'+
+    '<div class="stat-card"><div class="stat-val" style="color:var(--gr)">'+actifs+'</div><div class="stat-lbl">Actifs</div></div>'+
+    '<div class="stat-card"><div class="stat-val" style="color:var(--or)">'+state.prospects.filter(function(p){return p.st==='chaud';}).length+'</div><div class="stat-lbl">Prospects chauds</div></div>'+
+    '<div class="stat-card"><div class="stat-val" style="color:var(--bleu)">'+state.prospects.length+'</div><div class="stat-lbl">Pipeline total</div></div>'+
+    '</div>';
+
+  // Contrats en attente
+  var attente=state.contrats.filter(function(c){return (c.statut||'').toLowerCase()==='attente';});
+  if(attente.length>0){
+    h+='<div style="background:var(--orl);border-left:3px solid var(--or);border-radius:10px;padding:10px 12px;margin-bottom:10px">'+
+      '<div style="font-size:11px;font-weight:700;color:var(--or)"> '+attente.length+' contrat'+(attente.length>1?'s':'')+' en attente de démarrage</div>'+
+      '</div>';
+  }
+
+  // Prospects urgents
+  var urgents=state.prospects.filter(function(p){
+    if(!p.rel)return false;
+    return p.rel<=new Date().toISOString().slice(0,10);
+  });
+  if(urgents.length>0){
+    h+='<div class="stitle">À RELANCER AUJOURD\'HUI</div>';
+    h+='<div class="card">';
+    urgents.slice(0,3).forEach(function(c){
+      var tel=fp(c.tel);
+      h+='<div class="row"><div><div class="cnom">'+c.nom.substring(0,24)+'</div>'+
+        '<div class="cmeta">'+(c.src||'')+'</div></div>';
+      if(tel)h+='<a href="tel:'+tel+'" style="font-size:22px;text-decoration:none">📞</a>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+
+  h+='<div style="text-align:center;margin-top:16px">'+
+    '<span onclick="deconnecter()" style="font-size:10px;color:var(--tx3);cursor:pointer;text-decoration:underline">Se déconnecter</span>'+
+    '</div>';
+  h+='<div class="pb"></div></div>';
+  return h;
+}
+
+// ============================================================
+// PIPELINE
+// ============================================================
+function renderPipeline(){
+  var h='<div class="sec">';
+  h+='<div class="stitle">MES PROSPECTS ('+state.prospects.length+')</div>';
+
+  if(state.prospects.length===0){
+    h+='<div class="card" style="text-align:center;padding:30px;color:var(--tx2)">'+
+      'Aucun prospect encore.<br>Ajoute ton premier contact !'+
+      '</div>';
+  } else {
+    h+='<div class="card" style="padding:0">';
+    state.prospects.forEach(function(c){
+      var tel=fp(c.tel);
+      var stColor=c.st==='chaud'?'var(--re)':c.st==='signe'?'var(--gr)':'var(--tx2)';
+      h+='<div class="row" style="padding:10px 14px">'+
+        '<div style="flex:1;min-width:0">'+
+        '<div class="cnom">'+c.nom.substring(0,26)+'</div>'+
+        '<div class="cmeta">'+(c.src||'')+'</div></div>'+
+        '<div style="display:flex;align-items:center;gap:8px">'+
+        '<span style="font-size:10px;font-weight:700;color:'+stColor+'">'+c.st+'</span>';
+      if(tel){
+        h+='<a href="tel:'+tel+'" onclick="event.stopPropagation()" style="font-size:20px;text-decoration:none">📞</a>';
+        var wa=tel.startsWith('01')?'229'+tel.slice(2):'229'+tel.slice(1);
+        h+='<a href="https://wa.me/'+wa+'" onclick="event.stopPropagation()" target="_blank" style="font-size:20px;text-decoration:none">💬</a>';
+      }
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
+  h+='<div class="pb"></div></div>';
+  return h;
+}
+
+// ============================================================
+// BILAN CONTRATS
+// ============================================================
+function renderBilan(){
+  var h='<div class="sec">';
+  h+='<div class="stitle">MES CONTRATS 2026 ('+state.contrats.length+')</div>';
+
+  if(state.contrats.length===0){
+    h+='<div class="card" style="text-align:center;padding:30px;color:var(--tx2)">'+
+      'Aucun contrat enregistré.'+
+      '</div>';
+  } else {
+    h+='<div class="card" style="padding:0">';
+    state.contrats.forEach(function(c,i){
+      var st=(c.statut||'attente').toLowerCase();
+      var stBg=st==='actif'?'var(--grl)':st==='bloque'?'var(--rel)':'var(--orl)';
+      var stTxt=st==='actif'?'Actif':st==='bloque'?'Bloqué':'En attente';
+      var stCol=st==='actif'?'var(--gr)':st==='bloque'?'var(--re)':'var(--or)';
+      h+='<div style="padding:12px 14px;border-bottom:1px solid var(--bg2);cursor:pointer" onclick="toggleBilanDetail('+i+')">'+
+        '<div style="display:flex;justify-content:space-between;align-items:center">'+
+        '<div><div class="cnom">'+c.nom.substring(0,24)+'</div>'+
+        '<div class="cmeta">'+(c.produit||'')+' - '+(c.duree||'?')+' ans</div></div>'+
+        '<div style="text-align:right">'+
+        '<div class="comm-val">'+fmt(c.comm)+'</div>'+
+        '<span style="font-size:9px;padding:2px 7px;border-radius:7px;background:'+stBg+';color:'+stCol+';font-weight:700">'+stTxt+'</span>'+
+        '</div></div>'+
+        '<div id="bd-'+i+'" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--bg2)">'+
+        '<div style="display:flex;flex-wrap:wrap;gap:6px">'+
+        (st!=='actif'&&st!=='bloque'?'<button onclick="changerSt('+i+',\'Actif\')" style="padding:7px 13px;background:var(--gr);color:white;border:none;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:Sora,sans-serif"> Actif</button>':'')+
+        (st==='actif'?'<button onclick="changerSt('+i+',\'Attente\')" style="padding:7px 13px;background:var(--orl);color:var(--or);border:1.5px solid var(--or);border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:Sora,sans-serif"> Attente</button>':'')+
+        (st!=='bloque'?'<button onclick="changerSt('+i+',\'Bloque\')" style="padding:7px 13px;background:var(--rel);color:var(--re);border:1.5px solid var(--re);border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:Sora,sans-serif"> Bloquer</button>':'')+
+        (st==='bloque'?'<button onclick="changerSt('+i+',\'Actif\')" style="padding:7px 13px;background:var(--gr);color:white;border:none;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:Sora,sans-serif"> Réactiver</button>':'')+
+        '</div></div>'+
+        '</div>';
+    });
+    h+='</div>';
+  }
+  h+='<div class="pb"></div></div>';
+  return h;
+}
+
+function toggleBilanDetail(i){
+  var el=document.getElementById('bd-'+i);
+  if(el)el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function changerSt(i,st){
+  var c=state.contrats[i];
+  if(!c)return;
+  state.contrats[i].statut=st;
+  save('pk_eq_contrats',state.contrats);
+  sheetsPost('updateStatutContrat',{nom:c.nom,statut:st})
+    .then(function(res){toast(c.nom.substring(0,18)+' → '+st);})
+    .catch(function(){toast('Mis à jour localement');});
+  render();
+}
+
+// ============================================================
+// AJOUTER
+// ============================================================
+var addMode=0; // 0=prospect, 1=contrat
+function renderAjouter(){
+  var sP='flex:1;padding:10px;border-radius:10px;font-size:12px;font-weight:700;font-family:Sora,sans-serif;cursor:pointer;border:'+(addMode===0?'none':'1.5px solid var(--t1)')+';background:'+(addMode===0?'var(--t1)':'white')+';color:'+(addMode===0?'white':'var(--t1)')+';';
+  var sC='flex:1;padding:10px;border-radius:10px;font-size:12px;font-weight:700;font-family:Sora,sans-serif;cursor:pointer;border:'+(addMode===1?'none':'1.5px solid var(--gr)')+';background:'+(addMode===1?'var(--gr)':'white')+';color:'+(addMode===1?'white':'var(--gr)')+';';
+  var h='<div class="sec">'+
+    '<div style="display:flex;gap:8px;margin-bottom:12px">'+
+    '<button onclick="setAddMode(0)" style="'+sP+'">Nouveau prospect</button>'+
+    '<button onclick="setAddMode(1)" style="'+sC+'">Contrat signé</button>'+
+    '</div>';
+
+  if(addMode===0){
+    h+='<div class="card">'+
+      '<div class="fg"><label class="fl">Nom complet *</label><input class="fi" id="a-nom" type="text" placeholder="NOM PRENOM" style="text-transform:uppercase"></div>'+
+      '<div class="fg"><label class="fl">Téléphone</label><input class="fi" id="a-tel" type="tel" placeholder="0197..."></div>'+
+      '<div class="fg"><label class="fl">Où rencontré</label><input class="fi" id="a-src" type="text" placeholder="Ministère, Pharmacie, Avocat..."></div>'+
+      '<div class="fg"><label class="fl">Produit à proposer</label>'+
+      '<select class="fi" id="a-prod"><option>REP NF</option><option>Mixte Plus NF</option><option>TD</option><option>Fonds Cantonné</option></select></div>'+
+      '<div class="fg"><label class="fl">Notes</label><textarea class="fi" id="a-obs" placeholder="Ce qu\'il a dit..." style="min-height:60px"></textarea></div>'+
+      '<button class="bp1" onclick="ajouterProspect()">Enregistrer le prospect</button>'+
+      '</div>';
+  } else {
+    h+='<div class="card">'+
+      '<div class="fg"><label class="fl">Nom du client *</label><input class="fi" id="c-nom" type="text" placeholder="NOM PRENOM" style="text-transform:uppercase"></div>'+
+      '<div class="fg"><label class="fl">Téléphone</label><input class="fi" id="c-tel" type="tel" placeholder="0197..."></div>'+
+      '<div class="fg"><label class="fl">Produit *</label>'+
+      '<select class="fi" id="c-prod"><option>REP NF</option><option>Mixte Plus NF</option><option>TD</option><option>Fonds Cantonné</option></select></div>'+
+      '<div class="fg"><label class="fl">Prime mensuelle (FCFA) *</label><input class="fi" id="c-prime" type="number" placeholder="15000" oninput="previewComm()"></div>'+
+      '<div class="fg"><label class="fl">Durée (ans) *</label><input class="fi" id="c-duree" type="number" placeholder="15" value="15" oninput="previewComm()"></div>'+
+      '<div id="c-prev" style="background:var(--grl);border-radius:10px;padding:10px;margin-bottom:10px;display:none;text-align:center">'+
+      '<div style="font-size:10px;color:var(--gr)">Commission estimée</div>'+
+      '<div id="c-prev-val" style="font-size:22px;font-weight:800;color:var(--gr)">-</div>'+
+      '</div>'+
+      '<button class="bp1" style="background:linear-gradient(135deg,var(--gr),#1B5E20)" onclick="ajouterContrat()">Enregistrer le contrat</button>'+
+      '</div>';
+  }
+  h+='<div class="pb"></div></div>';
+  return h;
+}
+
+function setAddMode(m){addMode=m;render();}
+
+function previewComm(){
+  var prime=parseInt((document.getElementById('c-prime')||{}).value||0);
+  var duree=parseInt((document.getElementById('c-duree')||{}).value||15);
+  var prod=((document.getElementById('c-prod')||{}).value||'REP NF');
+  if(prime>0&&duree>0){
+    var c=calcComm(prod,prime,duree);
+    var prev=document.getElementById('c-prev');
+    var val=document.getElementById('c-prev-val');
+    if(prev)prev.style.display='block';
+    if(val)val.textContent=fmt(c)+'/mois';
+  }
+}
+
+function calcComm(prod,prime,duree){
+  if(prod.indexOf('TD')>=0||prod.indexOf('Temporaire')>=0)return Math.round(prime*0.10);
+  if(prod.indexOf('Fonds')>=0||prod.indexOf('Cantonne')>=0)return Math.round(prime*0.019);
+  var t=prod.indexOf('Mixte')>=0?0.0193:0.019;
+  return Math.round(prime*Math.min(duree,15)*t);
+}
+
+function ajouterProspect(){
+  var nom=((document.getElementById('a-nom')||{}).value||'').trim().toUpperCase();
+  if(!nom){toast('Nom obligatoire');return;}
+  var data={
+    nom:nom, tel:fp((document.getElementById('a-tel')||{}).value||''),
+    src:(document.getElementById('a-src')||{}).value||'',
+    prod:(document.getElementById('a-prod')||{}).value||'REP NF',
+    obs:(document.getElementById('a-obs')||{}).value||'',
+    statut:'nouveau'
+  };
+  state.prospects.unshift({id:'p'+Date.now(),nom:nom,tel:data.tel,src:data.src,st:'nouveau',prod:data.prod,obs:data.obs,rel:''});
+  save('pk_eq_prospects',state.prospects);
+  sheetsPost('addProspect',data).then(function(){toast(nom+' ajouté !');});
+  addMode=0;state.view='pipeline';render();
+}
+
+function ajouterContrat(){
+  var nom=((document.getElementById('c-nom')||{}).value||'').trim().toUpperCase();
+  var prime=parseInt((document.getElementById('c-prime')||{}).value||0);
+  var duree=parseInt((document.getElementById('c-duree')||{}).value||15);
+  var prod=(document.getElementById('c-prod')||{}).value||'REP NF';
+  if(!nom){toast('Nom obligatoire');return;}
+  if(!prime||!duree){toast('Prime et durée obligatoires');return;}
+  var comm=calcComm(prod,prime,duree);
+  var c={nom:nom,produit:prod,prime:prime,duree:duree,comm:comm,statut:'Attente',
+    date:new Date().toISOString().slice(0,10),tel:fp((document.getElementById('c-tel')||{}).value||'')};
+  state.contrats.push(c);
+  state.totalComm+=comm;
+  save('pk_eq_contrats',state.contrats);
+  save('pk_eq_totalComm',state.totalComm);
+  sheetsPost('addContrat',c).then(function(){toast(nom+' — Commission: '+fmt(comm)+'/mois !');});
+  addMode=0;state.view='bilan';render();
+}
+
+// ============================================================
+// EQUIPE (MANAGER)
+// ============================================================
+function renderEquipe(){
+  var h='<div class="sec">';
+  if(state.equipe.length===0){
+    h+='<div class="card" style="text-align:center;padding:30px;color:var(--tx2)">'+
+      'Chargement des données équipe...<br>'+
+      '<button onclick="chargerDonnees();toast(\'Chargement...\');" style="margin-top:12px;padding:8px 16px;background:var(--t1);color:white;border:none;border-radius:8px;cursor:pointer;font-family:Sora,sans-serif;font-size:12px">Actualiser</button>'+
+      '</div>';
+    chargerDonnees();
+    h+='<div class="pb"></div></div>';
+    return h;
+  }
+
+  var totalEquipe=state.equipe.reduce(function(s,m){return s+m.commTotal;},0);
+  var totalContrats=state.equipe.reduce(function(s,m){return s+m.contrats;},0);
+  var maxComm=state.equipe[0]?state.equipe[0].commTotal:1;
+
+  h+='<div class="hero">'+
+    '<div class="hero-label">Commission totale équipe</div>'+
+    '<div class="hero-val">'+fmt(totalEquipe)+'</div>'+
+    '<div class="hero-sub">'+totalContrats+' contrats — '+state.equipe.length+' commerciaux</div>'+
+    '</div>';
+
+  h+='<div class="stitle">CLASSEMENT ÉQUIPE</div>';
+  h+='<div class="card">';
+  state.equipe.forEach(function(m,i){
+    var pct=maxComm>0?Math.round((m.commTotal/maxComm)*100):0;
+    h+='<div class="rank">'+
+      '<div class="rank-num '+(i<3?'top':'')+'">'+((i<3?['🥇','🥈','🥉'][i]:i+1))+'</div>'+
+      '<div style="flex:1;min-width:0">'+
+      '<div style="display:flex;justify-content:space-between">'+
+      '<span style="font-size:12px;font-weight:700;color:var(--tx)">'+m.nom.split(' ')[0]+'</span>'+
+      '<span style="font-size:12px;font-weight:800;color:var(--t1)">'+fmt(m.commTotal)+'</span>'+
+      '</div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--tx2);margin-top:2px">'+
+      '<span>'+m.contrats+' contrats | '+m.actifs+' actifs</span>'+
+      '</div>'+
+      '<div class="bar-wrap"><div class="bar" style="width:'+pct+'%"></div></div>'+
+      '</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="pb"></div></div>';
+  return h;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+render();
+if(state.logged){
+  setTimeout(chargerDonnees, 800);
+}
+
+// Retour Android
+window.history.pushState({}, '', window.location.href);
+window.addEventListener('popstate', function(){
+  if(state.view!=='accueil'){state.view='accueil';render();}
+  else window.history.pushState({}, '', window.location.href);
+});
+</script>
+</body>
+</html>
