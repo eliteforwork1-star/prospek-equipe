@@ -182,7 +182,21 @@ function chargerContrats(){apiGet('getContrats').then(function(r){return r.json(
 function chargerContacts(){if(S.apiType!=='ind')return;apiGet('getPipeline').then(function(r){return r.json();}).then(function(res){if(res.success&&res.contacts&&res.contacts.length){var added=0;res.contacts.forEach(function(sc){if(!sc.nom)return;var ex=S.contacts.find(function(c){return c.nom.toUpperCase()===sc.nom.toUpperCase()||(sc.tel&&sc.tel.length>5&&c.tel===fp(sc.tel));});if(!ex){S.contacts.push({id:'sh'+Date.now()+Math.random(),nom:sc.nom.toUpperCase(),tel:fp(sc.tel||''),src:sc.source||'Sheets',st:sc.statut||'nouveau',prod:sc.produit||'A definir',prime:15000,obs:sc.notes||'',rel:sc.relance||''});added++;}});if(added>0){sv('pk_cnt_'+S.code,S.contacts);}render();}}).catch(function(){});}
 function chargerComms(){apiGet('getCommissions').then(function(r){return r.json();}).then(function(res){if(res.success&&res.commissions&&res.commissions.length){S.comms=res.commissions;sv('pk_com_'+S.code,S.comms);if(S.view==='commissions')render();}}).catch(function(){});}
 function chargerClassement(){fetch(API_EQ+'?action=getClassement&code='+S.code).then(function(r){return r.json();}).then(function(res){if(res.success&&res.classement){S.classement=res.classement;if(S.view==='equipe'||S.view==='classement')render();}}).catch(function(){});}
-function chargerClassement2(){fetch(API_EQ+'?action=getClassement&code='+S.code).then(function(r){return r.json();}).then(function(res){if(res.success&&res.classement)S.classement=res.classement;}).catch(function(){});}
+function chargerClassement2(){
+  // Données mock pour présentation si API indisponible
+  var mock=[
+    {rang:1,nom:'TOSSAVI GILDAS',contrats:22,commission:636490,estMoi:true},
+    {rang:2,nom:'FANOU HERVE',contrats:8,commission:180000,estMoi:false},
+    {rang:3,nom:'AGBESSI OPPORTUNE',contrats:5,commission:120000,estMoi:false},
+    {rang:4,nom:'KPEKPEDE SANDRA',contrats:4,commission:95000,estMoi:false},
+    {rang:5,nom:'GBAGUIDI DEBORAH',contrats:3,commission:72000,estMoi:false},
+  ];
+  S.classement=mock; render();
+  fetch(API_EQ+'?action=getClassement&code='+S.code)
+    .then(function(r){return r.json();})
+    .then(function(res){if(res.success&&res.classement&&res.classement.length)S.classement=res.classement;render();})
+    .catch(function(){});
+}
 function chargerEquipe(){fetch(API_EQ+'?action=getEquipe&code='+S.code).then(function(r){return r.json();}).then(function(res){if(res.success&&res.equipe){S.equipe=res.equipe;render();}}).catch(function(){});}
 function syncSheets(){var b=document.getElementById('syncbtn');if(b)b.textContent='Sync...';toast('Synchronisation...');chargerContrats();chargerContacts();chargerComms();chargerClassement2();setTimeout(function(){if(b)b.textContent='Sync Sheets';toast('Synchronisation terminee');},3000);}
 function updateSt(id,st,rel){S.contacts=S.contacts.map(function(c){if(c.id===id){var n=Object.assign({},c,{st:st});if(rel)n.rel=rel;return n;}return c;});sv('pk_cnt_'+S.code,S.contacts);var c=S.contacts.find(function(x){return x.id===id;});if(c)apiPost({action:'updateStatut',nom:c.nom,tel:c.tel,statut:st}).catch(function(){});if(st==='signe')markAct();var msgs={signe:'Contrat signe !',rdv:'RDV enregistre !',rappel:'Rappel programme',perdu:'Contact perdu',chaud:'Contact chaud !'};toast(msgs[st]||'Mis a jour');if(S.view==='detail')S.view='pipeline';render();}
