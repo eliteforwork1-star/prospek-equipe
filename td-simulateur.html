@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sunu Assurance Bénin — Temporaire Décès</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#F5F5F5;min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;color:#1A1A1A}
+
+.hdr{background:linear-gradient(135deg,#8B0000 0%,#C0392B 100%);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr-brand{display:flex;align-items:center;gap:12px}
+.hdr-logo{width:44px;height:44px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#8B0000;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hdr-title{font-family:'Lora',serif;font-size:18px;color:#fff;line-height:1.25}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.06em;margin-top:2px}
+.hdr-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 13px;font-size:11px;color:#fff;font-weight:600;white-space:nowrap}
+
+.main{max-width:600px;margin:0 auto;padding:20px 14px 70px}
+
+.card{background:#fff;border-radius:16px;padding:24px 18px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:14px}
+.sec-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#8B0000;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.sec-title::before{content:'';display:block;width:3px;height:16px;background:linear-gradient(#C0392B,#8B0000);border-radius:2px;flex-shrink:0}
+
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.lbl{font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.lbl-hint{font-size:11px;color:#94A3B8;font-weight:400}
+.inp{width:100%;padding:13px 14px;border-radius:10px;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;color:#1A1A1A;border:1.5px solid #E2E8F0;background:#FAFAFA;outline:none;-webkit-appearance:none}
+.inp:focus{border-color:#C0392B;box-shadow:0 0 0 3px rgba(192,57,43,.12);background:#fff}
+.inp.err{border-color:#EF4444;background:#FFF5F5}
+
+.tag{margin-top:8px;display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600}
+.tag-ok{background:#F0FDF4;border:1px solid #BBF7D0;color:#15803D}
+.tag-warn{background:#FFF7ED;border:1px solid #FED7AA;color:#C2410C}
+.tag-info{background:#FFF1F1;border:1px solid #FECACA;color:#991B1B}
+.tag-hidden{display:none}
+.err-txt{margin-top:6px;font-size:12px;color:#EF4444;display:none}
+.err-txt.show{display:block}
+
+.info-row{display:flex;gap:10px;flex-wrap:wrap}
+.info-box{flex:1;min-width:140px;background:#FFF1F1;border:1px solid #FECACA;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;color:#991B1B;font-weight:500}
+.info-box span{font-size:18px;flex-shrink:0}
+
+.btn{width:100%;padding:16px;border-radius:13px;font-size:15px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.05em;cursor:pointer;border:none;background:linear-gradient(135deg,#8B0000 0%,#C0392B 100%);color:#fff;box-shadow:0 5px 20px rgba(139,0,0,.3);transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98);opacity:.9}
+
+#res{display:none}
+#res.visible{display:block}
+
+/* HERO RÉSULTAT */
+.hero{background:linear-gradient(145deg,#6B0000 0%,#8B0000 55%,#C0392B 100%);border-radius:18px;padding:30px 20px 24px;text-align:center;box-shadow:0 10px 40px rgba(139,0,0,.3);margin-bottom:12px}
+.hero-eyebrow{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.hero-amount{font-family:'Lora',serif;font-size:52px;color:#fff;line-height:1;margin-bottom:4px}
+.hero-currency{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:4px}
+.hero-period{font-size:13px;color:#FECACA;font-weight:600;margin-bottom:18px}
+.hero-divider{height:1px;background:rgba(255,255,255,.15);margin:18px 0}
+.hero-meta{display:flex;justify-content:space-around;gap:8px;flex-wrap:wrap}
+.hero-meta-item{text-align:center;min-width:80px}
+.hero-meta-val{font-size:14px;font-weight:700;color:#FECACA}
+.hero-meta-key{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:.04em}
+
+/* CARTE COMMISSION */
+.comm-card{background:linear-gradient(135deg,#FFF1F1,#FFE4E4);border:2px solid #FECACA;border-radius:14px;padding:20px 18px;margin-bottom:12px;display:flex;align-items:center;gap:16px}
+.comm-icon{font-size:36px;flex-shrink:0}
+.comm-body{}
+.comm-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B0000;margin-bottom:4px}
+.comm-amount{font-family:'Lora',serif;font-size:30px;color:#6B0000;line-height:1}
+.comm-sub{font-size:12px;color:#991B1B;margin-top:3px}
+
+/* RÉCAP */
+.recap{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.chip{background:#FFF1F1;border:1px solid #FECACA;border-radius:8px;padding:5px 11px;font-size:12px;color:#991B1B;font-weight:600}
+.chip em{color:#94A3B8;font-style:normal;font-weight:400;margin-right:3px}
+
+.special{background:#FFF1F1;border:2px solid #FECACA;border-radius:16px;padding:30px 20px;text-align:center;margin-bottom:14px}
+.special-icon{font-size:42px;margin-bottom:12px}
+.special-title{font-family:'Lora',serif;font-size:20px;color:#8B0000;margin-bottom:8px}
+.special-text{font-size:13px;color:#991B1B;line-height:1.7}
+
+.btn-reset{width:100%;padding:13px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid #E2E8F0;background:#fff;color:#64748B;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.btn-reset:hover{border-color:#C0392B;color:#8B0000}
+
+@media(max-width:400px){
+  .hero-amount{font-size:40px}
+  .comm-amount{font-size:24px}
+  .info-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-logo">S</div>
+    <div>
+      <div class="hdr-title">Sunu Assurance Bénin</div>
+      <div class="hdr-sub">SIMULATION · TEMPORAIRE DÉCÈS</div>
+    </div>
+  </div>
+  <div class="hdr-badge">Outil Agents</div>
+</header>
+
+<main class="main">
+
+  <div class="card">
+    <div class="sec-title">Informations client</div>
+
+    <div class="field">
+      <div class="lbl">Date de naissance <span class="lbl-hint">Calcule l'âge automatiquement</span></div>
+      <input type="date" class="inp" id="dob" oninput="onDob()"/>
+      <div class="tag tag-hidden" id="age-tag"></div>
+      <div class="err-txt" id="err-dob"></div>
+    </div>
+
+    <div class="field">
+      <div class="lbl">Capital décès souhaité <span class="lbl-hint">En FCFA</span></div>
+      <input type="number" class="inp" id="capital" placeholder="Ex : 5 000 000" min="1000000" step="500000" oninput="onCap()"/>
+      <div class="tag tag-hidden" id="cap-tag"></div>
+      <div class="err-txt" id="err-cap"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">Conditions du contrat</div>
+    <div class="info-row">
+      <div class="info-box" id="duree-box"><span>📅</span><div><strong>Durée :</strong> 5 ans (max)</div></div>
+      <div class="info-box"><span>💳</span><div><strong>Paiement :</strong> Annuelle</div></div>
+      <div class="info-box"><span>👤</span><div><strong>Âge :</strong> 18 – 59 ans</div></div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="calculer()">Calculer la cotation →</button>
+
+  <div id="res" style="margin-top:20px"></div>
+
+</main>
+
+<script>
+const C=[
+  [1000000,103402.4576,26565816.0485],[960997.1014,98126.0015,25565816.0485],[927821.8862,97436.5145,24604818.9471],[895945.6886,96927.2515,23676997.0609],[865235.8162,96507.908,22781051.3723],[835636.4768,96161.8493,21915815.5561],[807078.0567,95856.4595,21080179.0793],[779524.6131,95590.9832,20273101.0226],[752926.1815,95349.1635,19493576.4096],[727235.2519,95115.5212,18740650.228],[702434.3333,94903.4831,18013414.9761],[678466.8122,94686.0724,17310980.6428],[655316.3519,94475.3405,16632513.8306],[632920.5948,94235.9574,15977197.4787],[611246.8945,93960.6744,15344276.8839],[590255.5825,93633.9758,14733029.9894],[569886.941,93218.5841,14142774.4069],[550115.5902,92710.1008,13572887.4658],[530913.4515,92100.5092,13022771.8757],[512274.2914,91403.0497,12491858.4241],[494214.2446,90653.5057,11979584.1328],[476748.0795,89886.825,11485369.8882],[459874.1153,89121.7289,11008621.8087],[443583.5079,88369.5934,10548747.6934],[427859.1563,87633.0902,10105164.1855],[412679.179,86909.4392,9677305.0292],[398024.7321,86198.1975,9264625.8502],[383872.8971,85494.1292,8866601.1181],[370206.2368,84796.7857,8482728.221],[357009.4262,84107.2678,8112521.9842],[344265.0589,83424.0314,7755512.558],[331959.9134,82749.191,7411247.4991],[320081.0097,82084.652,7079287.5857],[308605.3311,81421.6626,6759206.5761],[297511.8138,80752.6655,6450601.2449],[286777.8797,80067.8387,6153089.4311],[276393.7532,79369.6074,5866311.5514],[266342.545,78652.8242,5589917.7982],[256613.1213,77917.6152,5323575.2532],[247190.6187,77159.9297,5066962.1319],[238059.4016,76374.4199,4819771.5132],[229204.7563,75556.1378,4581712.1116],[220608.8385,74696.4446,4352507.3553],[212265.4328,73797.918,4131898.5168],[204164.2656,72858.7935,3919633.0841],[196298.3022,71880.248,3715468.8185],[188660.3887,70863.0952,3519170.5163],[181248.2665,69812.8829,3330510.1276],[174061.2855,68736.7178,3149261.8611],[167097.5179,67640.3842,2975200.5756],[160353.2191,66527.7517,2808103.0577],[153824.3216,65402.2326,2647749.8386],[147501.9711,64262.2296,2493925.517],[141379.1502,63107.7093,2346423.5459],[135449.9536,61939.5284,2205044.3957],[129707.0244,60756.8637,2069594.4422],[124145.9026,59561.586,1939887.4178],[118762.0453,58355.3282,1815741.5152],[113530.1832,57118.4812,1696979.4699],[108438.844,55844.6027,1583449.2868],[103466.6914,54516.8207,1475010.4428],[98615.5688,53141.1109,1371543.7514],[93869.1175,51704.9945,1272928.1826],[89230.3902,50215.1785,1179059.0651],[84702.6983,48678.7375,1089828.6749],[80272.9537,47086.1764,1005125.9765],[75946.3997,45446.1992,924853.0229],[71724.1899,43763.5295,848906.6232],[67624.2501,42059.9939,777182.4333],[63644.4202,40337.6013,709558.1832],[59783.447,38599.2091,645913.7631],[56039.2677,36846.8074,586130.3161],[52410.902,35083.4172,530091.0484],[48899.4876,33314.1802,477680.1464],[45506.0281,31544.1411,428780.6588],[42230.5468,29777.3813,383274.6307],[39071.7773,28016.6714,341044.0839],[36028.2053,26264.4861,301972.3066],[33099.9443,24524.9041,265944.1013],[30285.6133,22800.4873,232844.157],[27580.7118,21090.5768,202558.5437],[24980.8493,19394.4706,174977.8319],[22485.2048,17714.9472,149996.9826],[20098.8259,16060.7271,127511.7777],[17831.6765,14445.7061,107412.9518],[15695.575,12886.0097,89581.2753],[13698.862,11394.6315,73885.7003],[11847.4728,9982.4053,60186.8383],[10146.5691,8659.5818,48339.3655],[8599.6713,7434.9198,38192.7965],[7209.1051,6316.0836,29593.1251],[5974.4993,5308.0736,22384.0201],[4845.3768,4364.9029,16409.5208],[3786.4813,3454.3322,11564.144],[2828.8149,2610.3175,7777.6627],[2001.2315,1865.6961,4948.8479],[1325.2391,1246.8241,2947.6163],[810.049,768.2882,1622.3772],[449.3172,429.166,812.3281],[221.5908,212.9466,363.011],[94.7376,91.516,141.4201],[34.0735,33.0587,46.6825],[9.9362,9.6749,12.6089],[2.2555,2.2027,2.6727],[0.3632,0.3551,0.4172],[0.054,0.0531,0.054],[0,0,0]
+];
+
+const Fa=0.15, Fg=0.001, FACESS=2000, COMM_TAUX=0.10;
+
+const fmt=n=>new Intl.NumberFormat("fr-FR",{minimumFractionDigits:0,maximumFractionDigits:0}).format(Math.round(n));
+
+function getAge(dob){
+  if(!dob)return null;
+  const t=new Date(),d=new Date(dob);
+  return t.getFullYear()-d.getFullYear();
+}
+
+// Durée max selon l'âge : 60 - age, plafonnée à 5 ans
+function getDureeMax(age){
+  if(age<18||age>=60)return 0;
+  return Math.min(5, 60-age);
+}
+
+function showTag(id,cls,txt){const el=document.getElementById(id);el.className="tag "+cls;el.textContent=txt;}
+function hideTag(id){document.getElementById(id).className="tag tag-hidden";}
+function showErr(id,txt){const el=document.getElementById(id);el.className="err-txt show";el.textContent=txt;}
+function hideErr(id){document.getElementById(id).className="err-txt";}
+
+function onDob(){
+  const dob=document.getElementById("dob").value;
+  const age=getAge(dob);
+  const inp=document.getElementById("dob");
+  const box=document.getElementById("duree-box");
+  inp.classList.remove("err");hideErr("err-dob");hideTag("age-tag");
+  if(age===null)return;
+  const dureeMax=getDureeMax(age);
+  if(age<18){
+    inp.classList.add("err");
+    showErr("err-dob","⚠ Âge minimum : 18 ans");
+    box.innerHTML=`<span>📅</span><div><strong>Durée :</strong> —</div>`;
+  } else if(age>=60){
+    inp.classList.add("err");
+    showErr("err-dob","🚫 Non éligible — âge limite dépassé (60 ans)");
+    box.innerHTML=`<span>📅</span><div><strong>Durée :</strong> —</div>`;
+  } else if(dureeMax<5){
+    showTag("age-tag","tag-warn","⚠ "+age+" ans — durée réduite à "+dureeMax+" an"+(dureeMax>1?"s":""));
+    box.innerHTML=`<span>📅</span><div><strong>Durée :</strong> <strong style="color:#8B0000">${dureeMax} an${dureeMax>1?"s":""}</strong> (max pour cet âge)</div>`;
+  } else {
+    showTag("age-tag","tag-ok","✓ "+age+" ans — éligible");
+    box.innerHTML=`<span>📅</span><div><strong>Durée :</strong> 5 ans</div>`;
+  }
+}
+
+function onCap(){
+  const v=parseFloat(document.getElementById("capital").value);
+  hideTag("cap-tag");
+  if(!isNaN(v)&&v>=30000000)showTag("cap-tag","tag-warn","⚠ "+fmt(v)+" FCFA — bilan de santé requis");
+  else if(!isNaN(v)&&v>=1000000)showTag("cap-tag","tag-info","✓ "+fmt(v)+" FCFA");
+}
+
+function calculer(){
+  const dob=document.getElementById("dob").value;
+  const capRaw=document.getElementById("capital").value;
+  const age=getAge(dob);
+  const cap=parseFloat(capRaw);
+  let ok=true;
+
+  ["err-dob","err-cap"].forEach(hideErr);
+  ["dob","capital"].forEach(id=>document.getElementById(id).classList.remove("err"));
+
+  if(!dob||age===null){
+    showErr("err-dob","⚠ Saisissez la date de naissance");
+    document.getElementById("dob").classList.add("err");ok=false;
+  } else if(age<18){
+    showErr("err-dob","⚠ Âge minimum : 18 ans");
+    document.getElementById("dob").classList.add("err");ok=false;
+  } else if(age>=60){
+    showErr("err-dob","🚫 Non éligible — âge limite dépassé (60 ans)");
+    document.getElementById("dob").classList.add("err");ok=false;
+  }
+
+  if(!capRaw||isNaN(cap)||cap<=0){
+    showErr("err-cap","⚠ Saisissez le capital souhaité");
+    document.getElementById("capital").classList.add("err");ok=false;
+  } else if(cap<1000000){
+    showErr("err-cap","⚠ Capital minimum : 1 000 000 FCFA");
+    document.getElementById("capital").classList.add("err");ok=false;
+  }
+
+  if(!ok)return;
+
+  const duree=getDureeMax(age);
+  const res=document.getElementById("res");
+
+  // Calcul actuariel avec durée dynamique
+  const cx=C[age], cxn=C[age+duree];
+  const axn=(cx[2]-cxn[2])/cx[0];
+  const txPureU=(cx[1]-cxn[1])/cx[0];
+  const txInvU=txPureU+Fg*axn;
+  const txCommA=(txInvU/axn)/(1-Fa);
+  const txCommU=txInvU/(1-Fa);
+
+  const primeAnnuelle = txCommA * cap + FACESS;
+  const primeUnique   = txCommU * cap + FACESS;
+  const totalContrat  = primeAnnuelle * duree;
+  const commission    = primeAnnuelle * COMM_TAUX;
+
+  const dureeLabel = duree+" an"+(duree>1?"s":"");
+  const alerteDuree = duree<5 ? `<div style="background:#FFF3CD;border:1px solid #FFC107;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#856404;display:flex;gap:8px;align-items:center"><span>⚠️</span><div>Durée réduite à <strong>${dureeLabel}</strong> — le client aura <strong>60 ans</strong> à la fin du contrat.</div></div>` : "";
+  const alerteSante = cap>=30000000 ? `<div style="background:#FFF3CD;border:1px solid #FFC107;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#856404;display:flex;gap:8px;align-items:center"><span>🩺</span><div><strong>Bilan de santé requis</strong><br/>À partir de 30 000 000 FCFA, le client doit effectuer un bilan de santé auprès du médecin indiqué par SUNU.</div></div>` : "";
+  const alerteProduction = cap>100000000 ? `<div style="background:#FFF1F1;border:2px solid #C0392B;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#8B0000;display:flex;gap:8px;align-items:center"><span>📋</span><div><strong>Validation Production obligatoire</strong><br/>Au-dessus de 100 000 000 FCFA, cette estimation est calculée avec la formule actuarielle mais doit être validée par le service Production avant toute proposition définitive au client.</div></div>` : "";
+  const primeLabel = cap>100000000 ? "Estimation indicative — validation Production requise" : "Prime à payer par le client";
+
+  res.innerHTML=`
+    ${alerteDuree}
+    ${alerteSante}
+    ${alerteProduction}
+    <div class="recap">
+      <div class="chip"><em>Âge</em>${age} ans</div>
+      <div class="chip"><em>Durée</em>${dureeLabel}</div>
+      <div class="chip"><em>Capital garanti</em>${fmt(cap)} FCFA</div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-eyebrow">${primeLabel}</div>
+      <div class="hero-amount">${fmt(primeAnnuelle)}</div>
+      <div class="hero-currency">F CFA</div>
+      <div class="hero-period">par an · contrat de ${dureeLabel}</div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-val">${fmt(totalContrat)}</div>
+          <div class="hero-meta-key">TOTAL SUR ${dureeLabel.toUpperCase()}</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-val">${fmt(primeUnique)}</div>
+          <div class="hero-meta-key">EN PRIME UNIQUE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comm-card">
+      <div class="comm-icon">💼</div>
+      <div class="comm-body">
+        <div class="comm-label">Votre commission (10%)</div>
+        <div class="comm-amount">${fmt(commission)} FCFA</div>
+        <div class="comm-sub">par an · soit ${fmt(commission*duree)} FCFA sur ${dureeLabel}</div>
+      </div>
+    </div>
+
+    <button class="btn-reset" onclick="reset()">↩ Nouvelle simulation</button>
+  `;
+
+  res.className="visible";
+  res.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function reset(){
+  document.getElementById("dob").value="";
+  document.getElementById("capital").value="";
+  ["dob","capital"].forEach(id=>document.getElementById(id).classList.remove("err"));
+  ["err-dob","err-cap"].forEach(hideErr);
+  ["age-tag","cap-tag"].forEach(hideTag);
+  document.getElementById("duree-box").innerHTML=`<span>📅</span><div><strong>Durée :</strong> 5 ans (max)</div>`;
+  const r=document.getElementById("res");
+  r.className="";r.innerHTML="";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
